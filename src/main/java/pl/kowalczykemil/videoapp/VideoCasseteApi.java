@@ -1,9 +1,6 @@
 package pl.kowalczykemil.videoapp;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -11,14 +8,14 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/cassets/")
+@RequestMapping("/api/cassets")
 public class VideoCasseteApi {
     private List<VideoCassette> videoCassettes;
 
     public VideoCasseteApi(){
         this.videoCassettes = new ArrayList<>();
         videoCassettes.add(new VideoCassette(1L, "Remargedon", LocalDate.of(1995,1,1)));
-        videoCassettes.add(new VideoCassette(1L, "Pulp Fiction", LocalDate.of(1990,2,2)));
+        videoCassettes.add(new VideoCassette(2L, "Pulp Fiction", LocalDate.of(1990,2,2)));
     }
 
     @GetMapping("/all")
@@ -32,5 +29,20 @@ public class VideoCasseteApi {
                 filter(element -> element.getId()==index).findFirst();
 
         return first.get();
+    }
+
+    @PostMapping
+    public Boolean addVideo(@RequestBody VideoCassette videoCassette){
+        return videoCassettes.add(videoCassette);
+    }
+
+    @PutMapping
+    public Boolean updateVideo(@RequestBody VideoCassette videoCassette){
+        return videoCassettes.add(videoCassette);
+    }
+
+    @DeleteMapping
+    public boolean deleteVideo(@RequestParam int index){
+        return videoCassettes.removeIf(element -> element.getId() == index);
     }
 }
