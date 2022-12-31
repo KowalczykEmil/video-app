@@ -1,27 +1,31 @@
-package pl.kowalczykemil.videoapp;
+package pl.kowalczykemil.videoapp.dao.entity;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 import java.time.LocalDate;
 
+@Entity
 public class VideoCassette {
 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private Long id;
 
     private String title;
 
     private LocalDate productionYear;
 
-
-    public VideoCassette(){
-
+    public VideoCassette() {
     }
-    public VideoCassette(Long id, String title, LocalDate productionYear){
+
+    public VideoCassette(Long id, String title, LocalDate productionYear) {
         this.id = id;
         this.title = title;
         this.productionYear = productionYear;
     }
-
-
-
 
     public Long getId() {
         return id;
